@@ -1,1 +1,24 @@
 # uberOS
+
+# Round-robin scheduler
+
+The sources tree is :
+  -> core/ # contain all core code : interrupts, initialization, linker, HAL, ..
+  -> kernel/ # contain all os-related code except assembly exception handler
+  -> app/*.[ch] # contain application code including main
+  -> drivers/ # peripherals drivers code : UART, ...
+  -> lib/ general purpose functions : list, ...
+
+core/system_UBERTOOTH.c contains system initialization : corem3, clock, gpio
+DWT->CYCCNT from the debug watchpoint and trace unit can be used to measure cycle.
+HardFault_Handler catch stacks and registers and print it to UART1
+debug uart is implemented by drivers/lpc17_uart.c
+Clock is 100MhZ, systick configured to interrupt at 100Hz rate,
+The 3 task example light the leds at different rate, see kernel/simple_rtos.c
+
+Start to implement some of the cmsis_os2.h api
+TODO:
+- kernel : MPU protection, Low-power (sleep) mode
+- thread : dynamic thread generation, CMSIS api (return ID, as assembly need a C label and do not struct inference i cannot
+      put all in a struct, nevermind, just use index and global array for variable needed to be accessed in assembly handler)
+- semaphore, mailbox : always use ID, a semaphore is a fixed location ID, it can be lock, unlock
