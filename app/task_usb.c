@@ -31,31 +31,17 @@ int ubertooth_usb_request_handler(uint8_t request, uint16_t* request_params, uin
   return (1);
 }
 
-extern volatile uint32_t __systick_count;
 extern volatile uint32_t clkn;
-
-
-
-osThreadAttr_t ubertooth_task_usb_attr = {
-  .name = "ubertooth_task_usb",
-  .attr_bits = 0, // cmsis_os2.h line 205
-  .cb_mem = NULL,
-  .cb_size = 0,
-  .stack_mem = NULL,
-  .stack_size = 0,
-  .priority = 0,
-  .tz_module = 0,
-  0
-};
 
 void ubertooth_task_usb(void *arg)
 {
   (void)arg;
+  debug_printf("arg=%p, *arg=%d\n", arg, *((uint32_t*)arg));
   while (1) {
     // TODO update clkn (Bluetooth clock = 312.5 us period (312.5MhZ))
     // Need an oscilloscope TODO that
     // debug_printf("\n[clkn=%ld]\n", clkn);
-    // USB seems to work with clkn == 0 (clkn is used for timeout)
+    // USB seems to work with clkn == 0 (clkn is only used for timeout)
     handle_usb(clkn);
     if(requested_mode != mode) {
 	    switch (requested_mode) {
@@ -66,8 +52,6 @@ void ubertooth_task_usb(void *arg)
           break;
       }
     }
-    if (__systick_count & 0x001) {SET_LEDRED();}
-    else                      {CLR_LEDRED();}
   }
 }
 

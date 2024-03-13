@@ -27,9 +27,9 @@ void print_os_info(void)
   debug_printf ("PSP #3 = %x\n", __TasksPSP[3]);
 }
 
-void SysTick_Handler(void) // 1KHz
+void SysTick_Handler(void) // 100 Hz
 {
-  // Increment systick counter for LED blinking
+  // Increment systick counter
   __systick_count++;
   // Simple task round robin scheduler
   switch(__curr_task) {
@@ -64,7 +64,7 @@ void SVC_Handler_C(unsigned int * svc_args)
       // Return to thread with PSP
       __svc_exc_return = HW32_REG((__TasksPSP[__curr_task]));
       // Set PSP to @R0 of task 0 exception stack frame
-      __set_PSP((__TasksPSP[__curr_task] + 10*4));
+      __set_PSP((__TasksPSP[__curr_task] + REG_R0_OFFSET)); //10*4));
       // ========= Configure PendSV and SysTick =============
       // Set PendSV to lowest possible priority
       NVIC_SetPriority(PendSV_IRQn, 0xFF);

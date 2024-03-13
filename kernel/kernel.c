@@ -10,11 +10,9 @@ extern const uint32_t          __osTickFrequency;
 /// Initialize the RTOS Kernel.
 /// called by syscall 0
 /// \return status code that indicates the execution status of the function.
-void      osInitDefaultTasks(void);
 osStatus_t osKernelInitialize (void)
 {
   osStatus_t r = osOK;
-  osInitDefaultTasks();
   // All magic is done by the syscall 0
   return (r);
 }
