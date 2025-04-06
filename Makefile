@@ -246,7 +246,7 @@ CPPFLAGS += -Weffc++
 #  -gstabs:   have the assembler create line number information
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
-ASFLAGS = -g$(DEBUG) $(ADEFS) -I.  -alhms=$(<:%.S=$(OBJDIR)/%.lst)
+ASFLAGS = $(ADEFS) -I.  -alhms=$(<:%.S=$(OBJDIR)/%.lst)
 
 #---------------- Library Options ----------------
 
@@ -533,6 +533,3 @@ flash: all
 
 tag:
 	ctags -R . ../common
-
-# Linker Script for the current MCU
-LINKER_SCRIPT = core/LPC17xx_Linker_Script_with_bootloader.ld

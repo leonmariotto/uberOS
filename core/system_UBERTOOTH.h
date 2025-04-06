@@ -65,7 +65,7 @@ void set_isp(void);
 #define BOARD_ID BOARD_ID_UBERTOOTH_ONE
 
 
-enum {
+static enum {
   PINMODE_PULLUP      = 0b00,
   PINMODE_REPEATER    = 0b01,
   PINMODE_NOPULL      = 0b10,

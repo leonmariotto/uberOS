@@ -30,12 +30,12 @@ int osTaskNew (osThreadFunc_t func, void *argument, const osThreadAttr_t *attr)
   if (idx >= 0)
   {
     __TasksPSP[idx] = ((unsigned int) &__TasksStack[idx * TASKS_STACK_WSIZE]) + TASKS_STACK_SIZE - STACK_OFFSET;
-    HW32_REG(__TasksPSP[idx] + REG_PC_OFFSET) = func;
+    HW32_REG(__TasksPSP[idx] + REG_PC_OFFSET) = (uint32_t)func;
     HW32_REG(__TasksPSP[idx] + REG_xPSR_OFFSET) = INITIAL_xPSR;
     HW32_REG(__TasksPSP[idx] + REG_EXC_RETURN_OFFSET) = INITIAL_EXEC_RETURN;
     HW32_REG(__TasksPSP[idx] + REG_CONTROL_OFFSET) = INITIAL_CONTROL;
     // argument is set to R0
-    HW32_REG(__TasksPSP[idx] + REG_R0_OFFSET) = argument;
+    HW32_REG(__TasksPSP[idx] + REG_R0_OFFSET) = (uint32_t)argument;
     __ThreadStatus[idx] = THREAD_ENABLED;
   }
   return (idx);
