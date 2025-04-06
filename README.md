@@ -26,3 +26,5 @@ A 4th usb task is used to handle firmware update request (switch to DFU mode). <
 A very simple context switching is implemented to switch between tasks. <br>
 
 Most of the code comes from uberooth_one project. <br>
+
+![Screenshot from 2025-04-06 13-07-18](https://github.com/user-attachments/assets/6deb4635-869f-49a4-b609-772fc70767ad)
