@@ -1,24 +1,28 @@
 # uberOS
 
-# Round-robin scheduler
+An experimental simple OS for ubertooth_one. <br>
 
-The sources tree is :
-  -> core/ # contain all core code : interrupts, initialization, linker, HAL, ..
-  -> kernel/ # contain all os-related code except assembly exception handler
-  -> app/*.[ch] # contain application code including main
-  -> drivers/ # peripherals drivers code : UART, ...
-  -> lib/ general purpose functions : list, ...
+It use the ubertooth_one bootloader and dfu update mecanisme. <br>
 
-core/system_UBERTOOTH.c contains system initialization : corem3, clock, gpio
-DWT->CYCCNT from the debug watchpoint and trace unit can be used to measure cycle.
-HardFault_Handler catch stacks and registers and print it to UART1
-debug uart is implemented by drivers/lpc17_uart.c
-Clock is 100MhZ, systick configured to interrupt at 100Hz rate,
-The 3 task example light the leds at different rate, see kernel/simple_rtos.c
+The sources tree is : <br>
+<ul>
+  <li>core/ # contain all core code : interrupts, initialization, linker script, ..</li>
+  <li>kernel/ # contain all os-related code except assembly exception handler</li>
+  <li>app/*.[ch] # contain application code including main</li>
+  <li>drivers/ # peripherals drivers code : UART, ...</li>
+  <li>lib/ general purpose functions : list, ...</li>
+</ul>
 
-Start to implement some of the cmsis_os2.h api
-TODO:
-- kernel : MPU protection, Low-power (sleep) mode
-- thread : dynamic thread generation, CMSIS api (return ID, as assembly need a C label and do not struct inference i cannot
-      put all in a struct, nevermind, just use index and global array for variable needed to be accessed in assembly handler)
-- semaphore, mailbox : always use ID, a semaphore is a fixed location ID, it can be lock, unlock
+core/system_UBERTOOTH.c contains system initialization : corem3, clock, gpio <br>
+
+A debug output is available on expansion IO. <br>
+DWT->CYCCNT can be used to measure cycle. <br>
+HardFault_Handler catch stacks and registers and print it to UART1 <br>
+debug uart is implemented by drivers/lpc17_uart.c <br>
+Clock is 100MhZ, systick configured to interrupt at 100Hz rate, <br>
+
+The 3 task example light the leds at different rate, see kernel/simple_rtos.c <br>
+A 4th usb task is used to handle firmware update request (switch to DFU mode). <br>
+A very simple context switching is implemented to switch between tasks. <br>
+
+Most of the code comes from uberooth_one project. <br>
