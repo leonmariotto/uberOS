@@ -28,3 +28,26 @@ A very simple context switching is implemented to switch between tasks. <br>
 Most of the code comes from uberooth_one project. <br>
 
 ![Screenshot from 2025-04-06 13-07-18](https://github.com/user-attachments/assets/6deb4635-869f-49a4-b609-772fc70767ad)
+
+# Debug
+
+Install necessary requirements :
+```
+sudo apt install openocd
+cd /opt
+sudo wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz
+sudo tar xf arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz
+export PATH=$PATH:/opt/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi/bin
+```
+
+Run OpenOCD :
+```
+openocd -f ubertooth.cfg
+```
+
+In another terminal run arm-none-eabi-gdb :
+```
+arm-none-eabi-gdb simple.elf
+target remote :3333
+```
+
